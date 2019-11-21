@@ -40,7 +40,7 @@ public class CharacterController2D : MonoBehaviour
         if (m_Rigidbody2D == null)
             Debug.LogError(this.name + " : RB not found");
 
-        m_Anim = this.GetComponentInParent<Animator>();
+        m_Anim = this.GetComponentInChildren<Animator>();
         if (m_Anim == null)
             Debug.LogError(this.name + " : Animator not found");
 
@@ -48,6 +48,8 @@ public class CharacterController2D : MonoBehaviour
 
     public void Move(Vector2 aSpeedInput)
     {
+        m_Anim.SetFloat("SpeedX", aSpeedInput.x);
+        m_Anim.SetFloat("SpeedY", aSpeedInput.y);
         Vector3 targetVelocity = aSpeedInput * Time.fixedDeltaTime;
         m_Rigidbody2D.velocity = Vector2.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_velocity, m_movementSmoothing);
     }
